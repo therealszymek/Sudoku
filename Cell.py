@@ -1,25 +1,23 @@
 import pygame
 
 class Cell:
-    def __init__(self, value, row, col, screen):
-        self.value = value
-        self.row = row
-        self.col = col
-        self.screen = screen
-        self.selected = False
-        self.font = pygame.font.SysFont('comicsans', 40)
 
-    def set_cell_value(self, value):
-        self.value = value
+  def __init__(self, value, row, col, screen):
+    self.value = value
+    self.row = row
+    self.col = col
+    self.screen = screen
 
-    def draw(self):
-        cell_size = 60
-        x = self.col * cell_size
-        y = self.row * cell_size
+  def set_cell_value(self, value):
+    self.value = value
 
-        pygame.draw.rect(self.screen, (255, 255, 255), (x, y, cell_size, cell_size))
-        if self.selected:
-            pygame.draw.rect(self.screen, (255, 0, 0), (x, y, cell_size, cell_size), 3)
-        if self.value != 0:
-            text = self.font.render(str(self.value), True, (0, 0, 0))
-            self.screen.blit(text, (x + 20, y + 10))
+  def set_sketched_value(self, value):
+    self.sketched_value = value
+
+  def draw(self):
+    '''
+    Draws this cell, along with the value inside it. If this cell has a nonzero value, that value is 
+    displayed. Otherwise, no value is displayed in the cell. The cell is outlined red if it is currently 
+    selected.
+    '''
+
