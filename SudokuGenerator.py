@@ -5,7 +5,7 @@ class Sudoku_Generator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [[0] * row_length] * row_length
+        self.board = [[0] * row_length for row in range(row_length)]
         self.box_length = int(math.sqrt(row_length))
 
     def get_board(self):
@@ -49,17 +49,17 @@ class Sudoku_Generator:
         return False
 
     def fill_box(self, row_start, col_start):
-      numbers = list(range(1,10))
+      numbers = list(range(1, self.row_length + 1))  # Adjusted to dynamically determine numbers list size
       random.shuffle(numbers)
 
       for row in range(3):
-        for col in range(3):
-          row = row_start + row
-          col = col_start + col
-          index = row * 3 + col
+          for col in range(3):
+              row_index = row_start + row
+              col_index = col_start + col
+              index = row * 3 + col
 
-          if self.is_valid(row, col, numbers[index]):
-            self.board[row][col] = numbers[index]
+              if self.is_valid(row_index, col_index, numbers[index]):
+                  self.board[row_index][col_index] = numbers[index]
 
     def fill_diagonal(self):
       self.fill_box(6, 6)
@@ -113,5 +113,3 @@ def generate_sudoku(size, removed):
   sudoku.remove_cells()
   board = sudoku.get_board()
   return board
-      
-    
