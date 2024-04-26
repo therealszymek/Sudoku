@@ -49,7 +49,69 @@ class Sudoku_Generator:
         return False
 
     def fill_box(self, row_start, col_start):
-      
-      
+      numbers = list(range(1,10))
+      random.shuffle(numbers)
+
+      for row in range(3):
+        for col in range(3):
+          row = row_start + row
+          col = col_start + col
+          index = row * 3 + col
+
+          if self.is_valid(row, col, numbers[index]):
+            self.board[row][col] = numbers[index]
+
+    def fill_diagonal(self):
+      self.fill_box(6, 6)
+      self.fill_box(3, 3)
+      self.fill_box(0, 0)
+
+    def fill_remaining(self, row, col):
+      if (col >= self.row_length and row < self.row_length - 1):
+        row += 1
+        col = 0
+      if row >= self.row_length and col >= self.row_length:
+        return True
+      if row < self.box_length:
+        if col < self.box_length:
+            col = self.box_length
+      elif row < self.row_length - self.box_length:
+        if col == int(row // self.box_length * self.box_length):
+            col += self.box_length
+      else:
+        if col == self.row_length - self.box_length:
+            row += 1
+            col = 0
+            if row >= self.row_length:
+                return True
+
+      for num in range(1, self.row_length + 1):
+        if self.is_valid(row, col, num):
+          self.board[row][col] = num
+          if self.fill_remaining(row, col + 1):
+            return True
+          self.board[row][col] = 0
+      return False
+
+    def fill_values(self):
+      self.fill_diagonal()
+      self.fill_remaining(0, self.box_length)
+
+    def remove_cells(self):
+      num_removed = 0
+      while num_removed < self.removed_cells:
+        row = random.randint(0, 8)
+        col = random.randint(0, 8)
+        if self.board[row][col] != 0:
+          self.board[row][col] = 0
+          num_removed += 1
+
+def generate_sudoku(size, removed):
+  sudoku = Sudoku_Generator(size, removed)
+  sudoku.fill_values()
+  board = sudoku.get_board()
+  sudoku.remove_cells()
+  board = sudoku.get_board()
+  return board
       
     
