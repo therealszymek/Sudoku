@@ -17,27 +17,19 @@ class Sudoku_Generator:
         print(" ".join(map(str, row)))
 
     def valid_in_row(self, row, num):
-      inRow = False
-      for i in range(0, len(self.board[row])):
-        if self.board[row][i] == num:
-          inRow = True
-
-          break
-      return not inRow
-
-    def valid_in_col(self, col, num):
-      inCol = False
-      for i in range(0, len(self.board)):
-        if self.board[i][col] == num:
-          inCol = True
-          break
-      return not inCol
-        
+      for index in range(len(self.board[row])):
+        if self.board[row][index] == num:
+          return False
+      return True
       
-
+    def valid_in_col(self, col, num):
+      for index in range(len(self.board)):
+        if self.board[index][col] == num:
+          return False
+      return True
+      k
     def valid_in_box(self, row_start, col_start, num):
-      row_start = (row_start // 3) * 3
-      col_start = (col_start // 3) * 3
+
       inBox = False
       for row in range(row_start, row_start + 3):
         for col in range(col_start, col_start + 3):
@@ -49,7 +41,7 @@ class Sudoku_Generator:
     def is_valid(self, row, col, num):
       row_start = (row // 3) * 3
       col_start = (col // 3) * 3
-      if self.valid_in_row(row_start, num) is True:
+      if self.valid_in_row(row, num) is True:
         
         if self.valid_in_col(col, num) is True:
           
