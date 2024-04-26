@@ -13,7 +13,7 @@ class Sudoku_Generator:
 
     def print_board(self):
       for row in self.board:
-        print(row)
+        print(" ".join(map(str, row)))
 
     def valid_in_row(self, row, num):
       inRow = False
@@ -49,7 +49,7 @@ class Sudoku_Generator:
         return False
 
     def fill_box(self, row_start, col_start):
-      numbers = list(range(1, self.row_length + 1))  # Adjusted to dynamically determine numbers list size
+      numbers = list(range(1, self.row_length + 1))
       random.shuffle(numbers)
 
       for row in range(3):
@@ -113,3 +113,4 @@ def generate_sudoku(size, removed):
   sudoku.remove_cells()
   board = sudoku.get_board()
   return board
+
