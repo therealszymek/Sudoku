@@ -107,6 +107,16 @@ class Sudoku_Generator:
           self.board[row][col] = 0
           num_removed += 1
 
+    def create_ans(self):
+      self.fill_values()
+      solution = self.get_board()
+      return solution
+
+    def create_board(self, removed):
+      self.remove_cells()
+      board0 = self.get_board()
+      return board0
+
 def generate_sudoku(size, removed):
   sudoku = Sudoku_Generator(size, removed)
   sudoku.fill_values()
