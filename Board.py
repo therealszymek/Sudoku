@@ -6,6 +6,10 @@ from SudokuGenerator import Sudoku_Generator, generate_sudoku
 
 
 class Board:
+  WHITE = (255, 255, 255)
+  GRAY = (200, 200, 200)
+  BLUE = (100, 100, 255)
+  BLACK = (0, 0, 0)
   def __init__(self, width, height, screen, difficulty):
     self.width = width
     self.height = height
@@ -45,15 +49,21 @@ class Board:
           pygame.draw.line(self.screen, (0, 0, 0), (0, i * square_size), (self.width, i * square_size), line_width)
           pygame.draw.line(self.screen, (0, 0, 0), (i * square_size, 0), (i * square_size, self.height), line_width)
 
-      for j in range(9):
+"""      for j in range(9):
           for k in range(9):
-              if isinstance(self.board[j][k], Cell):
+            if self.board[j][k] != 0:
+              BLACK = (0,0,0)
+              text_surface = pygame.font.Font.render(str(self.board[j][k]), True, BLACK)
+              text_rect = text_surface.get_rect(center=((k * 60) + 60 // 2, (j * 60) + 60 // 2))
+              screen.blit(text_surface, text_rect)"""
+            
+              '''if isinstance(self.board[j][k], Cell):
                   self.board[j][k].draw()
               else:
                   cell_surf = cell_font.render(str(self.board[j][k]), True, (0, 0, 0))
                   rect = pygame.Rect(j * square_size, k * square_size, square_size, square_size)
                   cell_rect = cell_surf.get_rect(center=rect.center)
-                  self.screen.blit(cell_surf, cell_rect)
+                  self.screen.blit(cell_surf, cell_rect)'''
 
 
   

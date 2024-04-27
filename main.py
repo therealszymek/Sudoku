@@ -1,13 +1,13 @@
 from pygame import draw
 from SudokuGenerator import Sudoku_Generator
-from Board import Board
+"""from Board import Board"""
 import pygame
 import sys
 from Button import Button
 
 def main():
   pygame.init()
-  screen = pygame.display.set_mode((500, 500))
+  screen = pygame.display.set_mode((540, 540))
   running = True
   
   WHITE = (255, 255, 255)
@@ -15,7 +15,7 @@ def main():
   BLUE = (100, 100, 255)
   BLACK = (0, 0, 0)
   width = 540
-  height = 600
+  height = 540
   CELL_SIZE = 60
   GRID_SIZE = 9
   GRID_WIDTH = width - 2
@@ -69,6 +69,15 @@ def main():
   
     def start_game():
       screen.fill(WHITE)
+      cell_font = pygame.font.Font(None, 30)
+      square_size = width // 9
+
+      for i in range(1, 9):
+          line_width = 1
+          if i % 3 == 0:
+              line_width = 2
+          pygame.draw.line(screen, (0, 0, 0), (0, i * square_size), (width, i * square_size), line_width)
+          pygame.draw.line(screen, (0, 0, 0), (i * square_size, 0), (i * square_size, height), line_width)
   
     if in_menu:
       for event in pygame.event.get():
