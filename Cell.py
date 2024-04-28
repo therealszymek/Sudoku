@@ -27,7 +27,7 @@ class Cell:
       sketched_value = str(self.sketched_value)
     if self.value != 0:
       value = str(self.value)
-    square_size = 70  # sets size of square
+    square_size = 50  # sets size of square
     cell_font = pygame.font.Font(None, 30)
     sketch_font = pygame.font.Font(None, 30)
     sketch_rect = pygame.Rect((self.row * square_size) + 5, (self.col * square_size) + 5, square_size + 5,
@@ -42,4 +42,3 @@ class Cell:
     value_rect = value_surf.get_rect(center=value_temp.center)  # defines rectangle center
     self.screen.blit(sketch_surf, sketch_rect)
     self.screen.blit(value_surf, value_rect)  # uses .blit function to add image to screen
-    

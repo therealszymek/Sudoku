@@ -8,7 +8,6 @@ class Sudoku_Generator:
         self.board = [[0] * row_length for row in range(row_length)]
         self.box_length = 3
 
-
     def get_board(self):
       return self.board
 
@@ -21,7 +20,7 @@ class Sudoku_Generator:
         if self.board[row][index] == num:
           return False
       return True
-      
+
     def valid_in_col(self, col, num):
       for index in range(len(self.board)):
         if self.board[index][col] == num:
@@ -42,13 +41,11 @@ class Sudoku_Generator:
       row_start = (row // 3) * 3
       col_start = (col // 3) * 3
       if self.valid_in_row(row, num) is True:
-        
         if self.valid_in_col(col, num) is True:
-          
           if self.valid_in_box(row_start, col_start, num) is True:
             return True
       return False
-      
+
 
     def fill_box(self, row_start, col_start):
       numbers = list(range(1, self.row_length + 1))
@@ -65,7 +62,7 @@ class Sudoku_Generator:
       self.fill_box(6, 6)
       self.fill_box(3, 3)
       self.fill_box(0, 0)
-    
+
 
     def fill_remaining(self, row, col):
       if (col >= self.row_length and row < self.row_length - 1):
@@ -124,7 +121,3 @@ def generate_sudoku(size, removed):
   sudoku.remove_cells()
   board = sudoku.get_board()
   return board
-
-
-
-

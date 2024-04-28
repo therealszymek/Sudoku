@@ -10,6 +10,7 @@ packages = [{include = "repl_nix_sudokuproject"}]
 python = "^3.10"
 pygame = "^2.5.2"
 board = "^1.0"
+alien-invasion1 = "^1.0.0"
 
 
 [build-system]
