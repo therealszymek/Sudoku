@@ -1,5 +1,6 @@
 import pygame
 from Cell import Cell
+from SudokuGenerator import Sudoku_Generator
 
 
 class Board:
@@ -15,7 +16,8 @@ class Board:
     self.GRID_WIDTH = 450
     self.GRID_HEIGHT = 450
     self.sudoku_board = sudoku_board
-
+    self.original_board = sudoku_board
+    
     # Array of Cells
     self.cells = []
     for row in range(9):
@@ -56,6 +58,13 @@ class Board:
     return selected_cell
 
 
+  def reset_to_original(self):
+    for row in range(9):
+        for col in range(9):
+            original_value = self.original_board[row][col]
+            self.cells[row][col].set_cell_value(original_value)
+
+
 def click(self, x, y):
   row = y // self.CELL_SIZE
   col = x // self.CELL_SIZE
@@ -80,11 +89,6 @@ def place_number(self, value):
   selected_cell = self.find_selected_cell()
   selected_cell.set_cell_value(value)
 
-def reset_to_original(self):
-  for row in range(9):
-      for col in range(9):
-          original_value = self.original_board[row][col]
-          self.cells[row][col].set_cell_value(original_value)
 
 def is_full(self):
   for row in range(9):
@@ -123,5 +127,6 @@ def find_selected_cell(self):
             else:
               return self.cells[row][col]
 
+#def generate_answer()
 
 

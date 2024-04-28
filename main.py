@@ -113,17 +113,20 @@ def __main__():
             elif event.type == pygame.MOUSEBUTTONDOWN:
               # Get the mouse position
               mouse_x, mouse_y = pygame.mouse.get_pos()
+              if mouse_y <= 450:
               # Calculate the cell coordinates
-              row = mouse_y // (game_board.GRID_HEIGHT // 9)
+                row = mouse_y // (height // 12)
               # Calculate row index
-              col = mouse_x // (game_board.GRID_WIDTH // 9)   # Calculate column index
+                col = mouse_x // (width // 9)   # Calculate column index
+              else:
+                row = 0
               # Select the cell
               
               selected_cell = game_board.select(row, col)
               if restart_rectangle.collidepoint(event.pos):
-                pass
+                __main__()
               if reset_rectangle.collidepoint(event.pos):
-                game_board.draw()
+                game_board.reset_to_original()
               if exit_rectangle.collidepoint(event.pos):
                 sys.exit()
                 
@@ -134,16 +137,23 @@ def __main__():
                   value = int(pygame.key.name(event.key))
                   selected_cell.set_cell_value(value)
                   sudoku_board[col][row] = selected_cell.set_cell_value(value)
-  
-  
+                  
+
+        '''           
+        if game_board.is_full():
+          for row in range(9):
+            for col in range(9):
+              if self.cells[row][col].value == 0:
+                  return False
+          return True
+
         pygame.display.flip()
+        '''
 
 
 
     if in_menu:
       game_mode = 0
-      in_lose = False
-      in_win = False
 
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -152,6 +162,7 @@ def __main__():
           if easy_rectangle.collidepoint(event.pos):
             game_on = True
             game_mode = 30
+            print("test 1")
             sudoku_board = generate_sudoku(9, game_mode)
             game_board = Board(9, 9, screen, difficulty=None, sudoku_board=sudoku_board)
             start_game()
@@ -171,13 +182,30 @@ def __main__():
             start_game()
             in_menu = False
 
-        '''
-        if Board.is_full(game_board) is True:
-          if Board.check_board(game_board) is True:
-            game_on = False
-            in_win = True
-            '''
-          
+      """if in_lose:
+        lose_font = pygame.font.Font(None, 70)
+        lose_surface = lose_font.render("You Lose", 0 , BLACK)
+        lose_rectangle = lose_surface.get_rect(center=(width // 2, height // 2 - 200))
+        screen.blit(lose_surface, lose_rectangle)
+        exit_text = button_font.render("Exit", 0, (255, 255, 255))
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] +20))
+        exit_surface.fill(BLUE)
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rectangle = exit_surface.get_rect(center=(width//2 + 150, height//2 + 200))
+
+        screen.blit(exit_surface, exit_rectangle)
+        
+        for event in pygame.event.get():
+          if event.type == pygame.MOUSEBUTTONDOWN:
+            if exit_rectangle.collidepoint(event.pos):
+              sys.exit()
+
+      if in_win:
+        win_font = pygame.font.Font(None, 70)
+        win_surface = win_font.render("Sudoku", 0 , BLACK)
+        win_rectangle = win_surface.get_rect(center=(width // 2, height // 2 - 200))
+        screen. blit(win_surface, win_rectangle)"""
+        
           
           
       pygame.display.flip()
